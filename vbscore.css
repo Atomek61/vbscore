@@ -1,0 +1,64 @@
+.score {
+    position: absolute;
+    width: 100%;
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    aspect-ratio: 9/4;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 3fr 1fr;
+    row-gap: 2%;
+}
+
+.score .leds {
+    xbackground-color:rgb(58, 58, 58);
+    grid-column-start: 1;
+    grid-column-end: 6;
+}
+
+.score .controls {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+}
+
+.score .button {
+    height: 80%;
+    aspect-ratio: 3/2;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 0.4em;
+    background-color: rgb(38, 28, 28);
+}
+
+.score .button:hover {
+    transition: 0.6s ease;
+    background-color: rgb(58, 58, 58);
+}
+
+.score .button:active {
+    transition: 0.2s ease;
+    background-color: rgb(78, 78, 78);
+}
+
+.revert {
+    background-image: url("img/revert.svg");
+}
+
+.reset {
+    background-image: url("img/reset.svg");
+}
+
+.color {
+    background-image: url("img/palette.svg");
+}
+
+.swap {
+    background-image: url("img/swap.svg");
+}
+
+.full {
+    background-image: url("img/full1.svg");
+}

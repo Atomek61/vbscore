@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="vbscore.css"/>
+    <script src="vbscore.js"></script>
+    <script src="../svgled/modules.js"></script>
+    <script src="../svgled/modulebar.js"></script>
+    <style>   
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: black;
+            font: 11pt "Arial";
+        }
+
+        #appnote {
+          position: absolute; right: 8px; bottom: 4px;
+          color: hsla(20, 40%, 80%, 20%);
+        }
+
+        #versionnote {
+          position: absolute; left: 8px; bottom: 4px;
+          color: hsla(20, 40%, 80%, 20%);
+        }
+    </style>
+    <script>
+      window.onload = ()=>{
+        scoregui  = new ScoreGUI(document.getElementById("score-container"))
+      }
+
+    </script>
+</head>
+
+<body>
+    <div id="score-container" class="score">
+        <div class="leds"></div>
+        <div class="controls">
+          <div class="button revert"></div>
+          <div class="button reset"></div>
+          <div class="button color"></div>
+          <div class="button swap"></div>
+          <div class="button full"></div>
+        </div>
+    </div>
+    <span id="appnote">© 2023 Jan-Erich Schirrmacher, www.atomek.de</span>
+    <span id="versionnote">V3.0</span>
+  </body>
+
+</html>
