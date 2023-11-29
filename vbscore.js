@@ -3,7 +3,6 @@ class Score {
     constructor() {
       this.A = new Team(this, "A");
       this.B = new Team(this, "B");
-      this._color = "red";
       this.onChanged = null;
       this._lastPoints = [0, 0];
       this._swapped = false;
@@ -15,33 +14,11 @@ class Score {
         this.onChanged(source);
     }
 
-    get color() {
-      return this._color;
-    }
-
-    set color(value) {
-      if (value!=this.color) {
-        this._color = value;
-        this.doChanged(this);
-      }  
-    }
-
     reset() {
       let lastPoints = [this.A.points, this.B.points];
       this.A.points = 0;
       this.B.points = 0;
       this._lastPoints = lastPoints;
-    }
-
-    nextColor() {
-      if (this.color=="red")
-        this.color = "green";
-      else if (this.color=="green")
-        this.color = "yellow";
-      else if (this.color=="yellow")
-        this.color = "blue";
-      else
-        this.color = "red";
     }
 
     revert() {
@@ -114,14 +91,6 @@ class Score {
       return this._name;
     }
 
-    inc(n = 1) {
-      this.points = this.points + n
-    }
-
-    dec(n = 1) {
-      if (n>this.points) n = this.points;
-      this.points = this.points - n
-    }
   }  
 
   // Encapsulates the Score with its 2 Teams and handles some GUI
@@ -130,9 +99,10 @@ class Score {
     constructor(container) {
       this.score = new Score();
       this.container = container;
-      this.modulebar = new ModuleBar(this.select("leds"), "88:88");
-      this.modulebar.modules[2].display(':');
-
+      this._color = "red";
+      this._style = "normal";
+      this.modulebar = new ModuleBar(this.select("display"), "88:88", this.style);
+      
       // extends the modules svg-groups with hidden rects for top and bottom to catch the click events
       // <rect id="topZone" name="top" x="0" y="0" width="100%" height="50%" visibility="hidden" cursor="pointer" pointer-events="painted" />
       // <rect id="bottomZone" name="bottom" x="0" y="50%" width="100%" height="50%" visibility="hidden" cursor="pointer" pointer-events="painted" />
@@ -146,6 +116,13 @@ class Score {
           this.updateTeam(source)
       }     
 
+      this.select("revert").onclick =(event) => {this.score.revert();}
+      this.select("reset").onclick = (event) => {this.score.reset();}
+      this.select("color").onclick = (event) => {this.nextColor();}
+//      this.select("style").onclick = (event) => {this.nextStyle();}
+      this.select("swap").onclick = (event) => {this.score.swap(3000);}
+      this.select("full").onclick = (event) => {this.fullscreen = !this.fullscreen;}
+      
       document.body.addEventListener('fullscreenchange', (event) => {
         if (document.fullscreenElement != null)
           this.select("full").style.backgroundImage= "url(img/full2.svg)";
@@ -159,19 +136,11 @@ class Score {
     onModuleClick(e) {
       let delta = e.target.zone == "top" ? 1 : -1;
       switch(e.target.module.index) {
-        case 0:
-          this.score.A.points += delta*10; 
-          break;
-        case 1:
-          this.score.A.points += delta; 
-          break;
-        case 3:
-          this.score.B.points += delta*10; 
-          break;
-        case 4:
-          this.score.B.points += delta; 
-          break;
-        }
+        case 0: this.score.A.points += delta*10; break;
+        case 1: this.score.A.points += delta; break;
+        case 3: this.score.B.points += delta*10; break;
+        case 4: this.score.B.points += delta; break;
+      }
 //      console.log("clicked: module["+e.target.module.index+"].zone="+e.target.zone)        
     }
 
@@ -209,6 +178,50 @@ class Score {
 
     select(classname) {
       return document.querySelector("#"+this.container.id + " ." + classname);
+    }
+
+    get color() {
+      return this._color;
+    }
+
+    set color(value) {
+      if (value!=this.color) {
+        this._color = value;       
+        this.modulebar.color = this.color; 
+        this.updateDisplay();
+      }  
+    }
+
+    nextColor() {
+      if (this.color=="red")
+        this.color = "green";
+      else if (this.color=="green")
+        this.color = "yellow";
+      else if (this.color=="yellow")
+        this.color = "blue";
+      else
+        this.color = "red";
+    }
+
+    get style() {
+      return this._style;
+    }
+
+    set style(value) {
+      if (value!=this.style) {
+        this._style = value; 
+        document.removeElement(this.modulebar.element);      
+        this.modulebar = new ModuleBar(this.select("display"), "88:88", this.style);
+        this.modulebar.color = this.color; 
+        this.updateDisplay();
+      }  
+    }
+
+    nextStyle() {
+      if (this.style=="normal")
+        this.style = "modern";
+      else 
+        this.style = "normal";
     }
 
   }
