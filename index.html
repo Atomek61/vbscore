@@ -8,6 +8,7 @@
     <script src="modules.js"></script>
     <script src="modulebar.js"></script>
     <style>   
+
         body {
             margin: 0;
             padding: 0;
@@ -29,15 +30,11 @@
             left: 50%;
             top: 50%;
             transform: translateX(-50%) translateY(-50%);
-            aspect-ratio: 100/49;
-        }
-
-        .minidisplay {
-            height: 5%;
+            aspect-ratio: 100/46;
         }
 
         .display {
-            height: 75%;
+            height: 80%;
             /* background-color: #002222; */
         }
 
@@ -46,9 +43,16 @@
             height: 100%;
         }
 
-        .minidisplay svg {
-            height: 90%;
-            left: 10px;
+        #clock {
+            position: relative;
+            top: 5%;
+            height: 80%;
+            aspect-ratio: 16/4;
+        }
+
+        #clock svg {
+           position: relative;
+           height: 90%;
         }
 
         .controls {
@@ -60,7 +64,9 @@
         }
 
         #appnote {
-          position: absolute; right: 8px; bottom: 4px;
+            writing-mode: vertical-rl;
+          xtransform: rotate(-90deg);
+          position: absolute; right: 8px; top: 4px;
           color: hsla(20, 40%, 80%, 30%);
         }
 
@@ -69,8 +75,8 @@
           color: hsla(20, 40%, 80%, 30%);
         }
 
-
         .button {
+            color: red;
             height: 80%;
             aspect-ratio: 3/2;
             background-size: contain;
@@ -102,13 +108,14 @@
             background-image: url("img/palette.svg");
         }
 
+        .full {
+            background-image: url("img/full1.svg");
+        }
+
         .swap {
             background-image: url("img/swap.svg");
         }
 
-        .full {
-            background-image: url("img/full1.svg");
-        }
     </style>
     <script>
       window.onload = ()=>{
@@ -121,11 +128,12 @@
         <div class="minidisplay"></div>
         <div class="display"></div>
         <div class="controls">
+            <div id="clock"></div>
             <div class="button revert"></div>
             <div class="button reset"></div>
             <div class="button color"></div>
-            <div class="button swap"></div>
             <div class="button full"></div>
+            <div class="button swap"></div>
         </div>
     </div>
     <span id="appnote" >© 2023 Jan-Erich Schirrmacher, www.atomek.de</span>

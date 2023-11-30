@@ -82,6 +82,14 @@ const MODDEFS_NORMAL = {
     " ": {moduleClass: "modSpace",      width: 4, segCount: 0, segs: {}},
 }
 
+// "fat" design
+const MODDEFS_FAT = {
+    "8": {moduleClass: "mod7Seg",       width: 27, segCount: 7, segs: MOD7_SEGS},
+    ".": {moduleClass: "modDot",        width: 8, segCount: 1, segs: {" ": "-", ".": "X"}},
+    ":": {moduleClass: "modDoubledot",  width: 8, segCount: 1, segs: {" ": "-", ":": "X"}},
+    " ": {moduleClass: "modSpace",      width: 16, segCount: 0, segs: {}},
+}
+
 // "modern" design
 const MODDEFS_MODERN = {
     "8": {moduleClass: "modm13Seg",      width: 9, segCount: 13, segs: MODM13_SEGS},
@@ -93,6 +101,7 @@ const MODDEFS_MODERN = {
 // Define a line for each module set (module set = design)
 let DESIGNDEFS = {
     "normal": {modDefs: MODDEFS_NORMAL, defs: SVG_NORMAL_DEFS, scale: 12, height: 16, space: 1, element: null},
+    "fat":    {modDefs: MODDEFS_FAT, defs: SVG_FAT_DEFS, scale: 4, height: 46, space: 3, element: null},
     "modern": {modDefs: MODDEFS_MODERN, defs: SVG_MODERN_DEFS, scale: 12, height: 16, space: 1, element: null},
 }
 

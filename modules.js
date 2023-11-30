@@ -1,5 +1,5 @@
 const SVG_NORMAL_DEFS =
-`<svg version="1.1" viewBox="0 0 156 216" xmlns="http://www.w3.org/2000/svg">
+`<svg version="1.1" viewBox="0 0 156 192" xmlns="http://www.w3.org/2000/svg">
 <defs>
     <path id="segA" d="m16 0c-4.1221 0-7.5433 1.7965-10.479 4.5215l19.479 19.479h58l19.479-19.479c-2.9352-2.725-6.4785-4.5215-10.479-4.5215z" />
     <path id="segB" d="m103.48 5.5215-19.479 19.479v58l12 12 12-12v-67c0-3.8923-1.7965-7.5433-4.5215-10.479z"  />        
@@ -29,6 +29,43 @@ const SVG_NORMAL_DEFS =
     </g>
     <g class="modDoubledot">
         <use href="#segDoubledot" />
+    </g>
+    <g class="modSpace">
+    </g>
+</defs>
+</svg>`;
+
+const SVG_FAT_DEFS =
+`<svg version="1.1" viewBox="0 0 108 184" xmlns="http://www.w3.org/2000/svg">
+<defs>
+    <path id="segfA" d="m16 0c-4.1221 0-7.5433 1.7965-10.479 4.5215l27.479 27.479h42l27.479-27.479c-2.9352-2.725-6.4785-4.5215-10.479-4.5215z"/>
+    <path id="segfB" d="m103.48 5.5215-27.479 27.479v42l16 16 16-16v-59c0-3.8923-1.7965-7.5433-4.5215-10.479z"/>
+    <path id="segfC" d="m92 93-16 16v42l27.396 27.396c2.7714-2.9944 4.6035-6.3295 4.6035-10.396v-59z"/>
+    <path id="segfD" d="m33 152-27.479 27.479c2.9352 2.725 5.8967 4.5215 10.479 4.5215h76c4 0 7.4766-1.8589 10.4-4.5996l-27.4-27.4z"/>
+    <path id="segfE" d="m16 93.003-16 15.997 1.6667e-7 59c1.0671e-8 3.7774 1.7965 7.5433 4.5215 10.479l27.479-27.479v-42z"/>
+    <path id="segfF" d="m4.5215 5.5215c-2.725 2.9352-4.5215 6.3564-4.5215 10.479v59l16 16 16-16v-42z"/>
+    <path id="segfG" d="m33 76-16 16 15.431 16 42.569 2e-5 16-16-16-16z"/>
+    <rect id="segfDot" y="152" width="32" height="32" />
+    <g id="segfDoubledot">
+        <rect y="116" width="32" height="32" />
+        <rect y="52" width="32" height="32" />
+    </g>
+    <g class="mod7Seg">
+        <use href="#segfA" />
+        <use href="#segfB" />
+        <use href="#segfC" />
+        <use href="#segfD" />
+        <use href="#segfE" />
+        <use href="#segfF" />
+        <use href="#segfG" />
+        <use href="#topZone" />
+        <use href="#bottomZone" />
+    </g>
+    <g class="modDot">
+        <use href="#segfDot" />
+    </g>
+    <g class="modDoubledot">
+        <use href="#segfDoubledot" />
     </g>
     <g class="modSpace">
     </g>
@@ -72,13 +109,13 @@ const SVG_MODERN_DEFS =
         <use href="#segmL" />
         <use href="#segmM" />
     </g>
-    <g class="modmDot">
+    <g class="modDot">
         <use href="#segmDot" />
     </g>
-    <g class="modmDoubledot">
+    <g class="modDoubledot">
         <use href="#segmDoubledot" />
     </g>
-    <g class="modmSpace">
+    <g class="modSpace">
     </g>
 </defs>
 </svg>

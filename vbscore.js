@@ -114,9 +114,9 @@ class Score {
       this._style = "normal";
       this.display = new ModuleBar(this.select("display"), "88:88", this.style);
       this.display.update(" 0: 0");
-      this.clockdisplay = new ModuleBar(this.select("minidisplay"), "88:88:88", this.style);
+      this.clockdisplay = new ModuleBar(document.getElementById("clock"), "88:88:88", "fat");
       this.clockdisplay.colors = ["#068", "#001"];
-
+      this.updateClock();
       // extends the modules svg-groups with hidden rects for top and bottom to catch the click events
       // <rect id="topZone" name="top" x="0" y="0" width="100%" height="50%" visibility="hidden" cursor="pointer" pointer-events="painted" />
       // <rect id="bottomZone" name="bottom" x="0" y="50%" width="100%" height="50%" visibility="hidden" cursor="pointer" pointer-events="painted" />
@@ -144,16 +144,18 @@ class Score {
           this.select("full").style.backgroundImage= "url(img/full1.svg)";
       });
 
-      setInterval(()=>{
-          let time = Date.now()
-          let HHoMMoSS = getTimeStr(time);
-          let HHoMM = HHoMMoSS.slice(0, 5);
-          let o = (time % 1000) > 500 ? " " : ":";
-          let SS = HHoMMoSS.slice(-2)
-          this.clockdisplay.display(HHoMM+o+SS);
-      }, 150);        
+      setInterval(()=>{this.updateClock()}, 150);
 
       this.updateDisplay();
+    }
+
+    updateClock() {
+      let time = Date.now()
+      let HHoMMoSS = getTimeStr(time);
+      let HHoMM = HHoMMoSS.slice(0, 5);
+      let o = (time % 1000) > 500 ? " " : ":";
+      let SS = HHoMMoSS.slice(-2)
+      this.clockdisplay.display(HHoMM+o+SS);
     }
 
     onModuleClick(e) {
