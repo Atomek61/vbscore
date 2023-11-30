@@ -1,3 +1,14 @@
+const dateTimeFormat = new Intl.DateTimeFormat('en-us', {
+  hour: "2-digit",
+  minute:"2-digit",
+  second:"2-digit",
+  hour12: false,
+});
+
+function getTimeStr(time) {
+  return dateTimeFormat.format(time)
+}
+
 class Score {
 
     constructor() {
@@ -101,13 +112,16 @@ class Score {
       this.container = container;
       this._color = "red";
       this._style = "normal";
-      this.modulebar = new ModuleBar(this.select("display"), "88:88", this.style);
-      
+      this.display = new ModuleBar(this.select("display"), "88:88", this.style);
+      this.display.update(" 0: 0");
+      this.clockdisplay = new ModuleBar(this.select("minidisplay"), "88:88:88", this.style);
+      this.clockdisplay.colors = ["#068", "#001"];
+
       // extends the modules svg-groups with hidden rects for top and bottom to catch the click events
       // <rect id="topZone" name="top" x="0" y="0" width="100%" height="50%" visibility="hidden" cursor="pointer" pointer-events="painted" />
       // <rect id="bottomZone" name="bottom" x="0" y="50%" width="100%" height="50%" visibility="hidden" cursor="pointer" pointer-events="painted" />
       for (let i of [0, 1, 3, 4])
-        this.modulebar.modules[i].onclick = (e)=>{this.onModuleClick(e)};
+        this.display.modules[i].onclick = (e)=>{this.onModuleClick(e)};
 
       this.score.onChanged = (source) => {
         if (source == this.score)
@@ -129,6 +143,15 @@ class Score {
         else
           this.select("full").style.backgroundImage= "url(img/full1.svg)";
       });
+
+      setInterval(()=>{
+          let time = Date.now()
+          let HHoMMoSS = getTimeStr(time);
+          let HHoMM = HHoMMoSS.slice(0, 5);
+          let o = (time % 1000) > 500 ? " " : ":";
+          let SS = HHoMMoSS.slice(-2)
+          this.clockdisplay.display(HHoMM+o+SS);
+      }, 150);        
 
       this.updateDisplay();
     }
@@ -163,11 +186,11 @@ class Score {
       if (d1==0) d1 = " "
       let d2 = points % 10
       if (team.name=="A") {
-        this.modulebar.modules[0].display(d1.toString())
-        this.modulebar.modules[1].display(d2.toString())
+        this.display.modules[0].display(d1.toString())
+        this.display.modules[1].display(d2.toString())
       } else {
-        this.modulebar.modules[3].display(d1.toString())
-        this.modulebar.modules[4].display(d2.toString())
+        this.display.modules[3].display(d1.toString())
+        this.display.modules[4].display(d2.toString())
       }
     }
 
@@ -187,7 +210,7 @@ class Score {
     set color(value) {
       if (value!=this.color) {
         this._color = value;       
-        this.modulebar.color = this.color; 
+        this.display.colors = this.color; 
         this.updateDisplay();
       }  
     }
@@ -210,9 +233,9 @@ class Score {
     set style(value) {
       if (value!=this.style) {
         this._style = value; 
-        document.removeElement(this.modulebar.element);      
-        this.modulebar = new ModuleBar(this.select("display"), "88:88", this.style);
-        this.modulebar.color = this.color; 
+        document.removeElement(this.display.element);      
+        this.display = new ModuleBar(this.select("display"), "88:88", this.style);
+        this.display.colors = this.color; 
         this.updateDisplay();
       }  
     }
